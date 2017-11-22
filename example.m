@@ -3,23 +3,28 @@ clear all;
 load('testData.mat');
 
 
-ent = zeros([1 360]);
-for ii = 1:360
-  phiFactor = exp(-1i * pi * ii / 360);
-  spectrumCorr = spectrum * phiFactor;
-  h = real(spectrumCorr);
-  h = abs(h) / sum(abs(h));
-  ent(ii) = -sum(h .* log(h));
+
+
+ent = zeros([360 360]);
+n = length(spectrum);
+linearRamp = linspace(0,1,n);
+
+for ii = 1:1:360
+  for jj = 1:1:360
+    phi = ii + jj * linearRamp;
+    phiFactor = exp(-1i * pi * phi / 360);
+    spectrumCorr = spectrum .* phiFactor;
+    ent(ii,jj) = normalizedEntropy(spectrumCorr);
   
-  
+  end
 end
 
 
 figure();
-plot(ent);
+surf(ent);
 
-phiFactor = exp(-1i * pi * 250 / 360);
-  spectrumCorr = spectrum * phiFactor;
+%phiFactor = exp(-1i * pi * 250 / 360);
+%spectrumCorr = spectrum * phiFactor;
 
-figure()
-plot(real(spectrumCorr))
+%figure()
+%plot(real(spectrumCorr))
