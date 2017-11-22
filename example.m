@@ -14,7 +14,7 @@ for ii = 1:1:360
     phi = ii + jj * linearRamp;
     phiFactor = exp(-1i * pi * phi / 360);
     spectrumCorr = spectrum .* phiFactor;
-    ent(ii,jj) = normalizedEntropy(spectrumCorr);
+    ent(ii,jj) = normalizedEntropy(spectrumCorr, false);
   
   end
 end
