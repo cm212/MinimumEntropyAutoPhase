@@ -9,7 +9,7 @@ simplexZeroAndFirstOrder = 2;
 
 params.firstOrderPhaseCorrection = false;
 params.nonNegativePenalty = true;
-params.searchMethod = simplexZeroOrder;
+params.searchMethod = 1;
 
 correctedSpectrum = phaseCorrect(spectrum, params);
 
