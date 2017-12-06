@@ -4,6 +4,9 @@ load('testData.mat');
 
 
 
+params.firstOrderPhaseCorrection = false;
+params.nonNegativePenalty = false;
+
 
 ent = zeros([360 360]);
 n = length(spectrum);
