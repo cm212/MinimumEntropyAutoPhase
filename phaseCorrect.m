@@ -8,38 +8,24 @@ function [correctedSpectrum] = phaseCorrect(spectrum, params)
   
   if(params.searchMethod == bruteForce)
     ent = zeros([1 360]);
-    for ii = 1:1:360
-      %phi = ii + jj * linearRamp;
-      phi = ii;
+    for phi = 1:1:360
       phiFactor = exp(-1i * pi * phi / 360);
       spectrumCorr = spectrum .* phiFactor;
-      ent(ii) = phaseCorrectCostFunction(spectrumCorr, params);
+      ent(phi) = phaseCorrectCostFunction(spectrumCorr, params);
     end  
-    
     minIndex = find(ent == min(ent));
     correctedSpectrum = spectrum * exp(-1i * pi * minIndex / 360);
-  
   elseif(params.searchMethod == simplexZeroOrder)
-
-    bestPhase = fminsearch (@(phi) (phaseCorrectCostFunction(exp(-1i * phi) * spectrum, params)), [0]);
+    init = [0];
+    bestPhase = fminsearch (@(phi) (phaseCorrectCostFunction(exp(-1i * phi) * spectrum, params)), init);
     correctedSpectrum = spectrum * exp(-1i * bestPhase);
-    
+  elseif(params.searchMethod == simplexZeroAndFirstOrder)
+    ramp = linspace(0, 1, length(spectrum));
+    init = [0; 0];
+    bestPhase = fminsearch (@(phi) (phaseCorrectCostFunction(exp(-1i * (phi(1) + phi(2)*ramp)) .* spectrum' , params)), init);
+    correctedSpectrum = exp(-1i * (bestPhase(1) + bestPhase(2)*ramp)) .* spectrum';
   else
+    disp('bad search method');
   end
   
-%ent = zeros([360 360]);
-%n = length(spectrum);
-%linearRamp = linspace(0,1,n);
-
-%for ii = 1:1:360
-%  for jj = 1:1:360
-%    phi = ii + jj * linearRamp;
-%    phiFactor = exp(-1i * pi * phi / 360);
-%    spectrumCorr = spectrum .* phiFactor;
-%    ent(ii,jj) = normalizedEntropy(spectrumCorr, false);
-%  
-%  end
-%end
-
-
 endfunction
