@@ -7,9 +7,8 @@ bruteForce = 0;
 simplexZeroOrder = 1;
 simplexZeroAndFirstOrder = 2;
 
-params.firstOrderPhaseCorrection = false;
 params.nonNegativePenalty = true;
-params.searchMethod = 1;
+params.searchMethod = simplexZeroOrder;
 
 correctedSpectrum = phaseCorrect(spectrum, params);
 

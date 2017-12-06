@@ -10,7 +10,7 @@ function entr = phaseCorrectCostFunction(spectrum, params);
   
     % should be determined to make negativity penalty on order of entropy
     % for now hard coded
-    scaleFactor = 1e2;
+    scaleFactor = 1e1;
 
     % equation 7 in reference
     % should be abs(R) instead of abs(h)? better check normalization
