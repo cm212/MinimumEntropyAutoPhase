@@ -16,6 +16,9 @@ function [correctedSpectrum] = phaseCorrect(spectrum, params)
     
     minIndex = find(ent == min(ent));
     correctedSpectrum = spectrum * exp(-1i * pi * minIndex / 360);
+  
+  elseif(params.searchMethod == simplex)
+  else
   end
   
 %ent = zeros([360 360]);
