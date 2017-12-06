@@ -3,6 +3,7 @@ function entr = phaseCorrectCostFunction(spectrum, params);
   
   h = abs(R) / sum(abs(R));
   entr  = -sum(h .* log(h));
+  
   if(params.nonNegativePenalty)
     % equation 8 in reference
     stepDownFunction = 0.5 - sign(R)/2; % 1 when negative, 0 when positive 
@@ -12,6 +13,7 @@ function entr = phaseCorrectCostFunction(spectrum, params);
     scaleFactor = 1e10;
 
     % equation 7 in reference
+    % should be abs(R) instead of abs(h)? better check normalization
     negativePenalty = scaleFactor * sum(stepDownFunction .* abs(h));
     entr = entr + negativePenalty;
   end

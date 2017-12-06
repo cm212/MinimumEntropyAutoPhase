@@ -1,10 +1,12 @@
 
 function [correctedSpectrum] = phaseCorrect(spectrum, params)
   
-  bruteForceSearch = 0;
-  simplex = 1;
+  bruteForce = 0;
+  simplexZeroOrder = 1;
+  simplexZeroAndFirstOrder = 2;
+  correctedSpectrum = [];
   
-  if(params.searchMethod == bruteForceSearch)
+  if(params.searchMethod == bruteForce)
     ent = zeros([1 360]);
     for ii = 1:1:360
       %phi = ii + jj * linearRamp;
@@ -17,7 +19,11 @@ function [correctedSpectrum] = phaseCorrect(spectrum, params)
     minIndex = find(ent == min(ent));
     correctedSpectrum = spectrum * exp(-1i * pi * minIndex / 360);
   
-  elseif(params.searchMethod == simplex)
+  elseif(params.searchMethod == simplexZeroOrder)
+
+    bestPhase = fminsearch (@(phi) (phaseCorrectCostFunction(exp(-1i * phi) * spectrum, params)), [0]);
+    correctedSpectrum = spectrum * exp(-1i * bestPhase);
+    
   else
   end
   
@@ -34,17 +40,6 @@ function [correctedSpectrum] = phaseCorrect(spectrum, params)
 %  
 %  end
 %end
-
-
-%figure();
-%
-%surf(ent);
-
-%phiFactor = exp(-1i * pi * 250 / 360);
-%spectrumCorr = spectrum * phiFactor;
-
-%figure()
-%plot(real(spectrumCorr))
 
 
 endfunction

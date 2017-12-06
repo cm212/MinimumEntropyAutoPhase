@@ -4,10 +4,12 @@ load('testData.mat');
 
 
 bruteForce = 0;
-simplex = 1;
+simplexZeroOrder = 1;
+simplexZeroAndFirstOrder = 2;
+
 params.firstOrderPhaseCorrection = false;
 params.nonNegativePenalty = true;
-params.searchMethod = bruteForce;
+params.searchMethod = 1;
 
 correctedSpectrum = phaseCorrect(spectrum, params);
 
