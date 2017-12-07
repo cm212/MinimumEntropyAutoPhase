@@ -10,7 +10,7 @@ simplexZeroAndFirstOrder = 2;
 params.nonNegativePenalty = true;
 params.searchMethod = simplexZeroOrder;
 
-correctedSpectrum = phaseCorrect(spectrum, params);
+[correctedSpectrum, phi0] = phaseCorrect(spectrum, params);
 
 subplot(1,2,1)
 plot(real(spectrum),'b-')
