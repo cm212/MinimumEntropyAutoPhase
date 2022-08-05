@@ -1,7 +1,6 @@
-close all;
-clear all;
+close all
+clear 
 load('testData.mat');
-
 
 bruteForce = 0;
 simplexZeroOrder = 1;

@@ -1,7 +1,6 @@
-
 function [correctedSpectrum, phiVector] = phaseCorrect(spectrum, params)
-  ## NOTE: returns a corrected spectrum and a 2-vector of the  
-  ##   0th- and 1st-order phases
+  % NOTE: returns a corrected spectrum and a 2-vector of the  
+  %   0th- and 1st-order phases
   
   bruteForce = 0;
   simplexZeroOrder = 1;
@@ -32,5 +31,5 @@ function [correctedSpectrum, phiVector] = phaseCorrect(spectrum, params)
   else
     disp('bad search method');
   end
-  
-endfunction
+end  
+
